@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>City Oasis – Lead Progress Report</title>
+<style>
+.viz-root{color-scheme:light;--surface-0:#f5f4f1;--surface-1:#fcfcfb;--border:#e3e2de;--grid:#ecebe7;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#7a7974;
+--bar:#2a78d6;--bar-soft:#9ec5f4;--line:#2a78d6;--good:#0ca30c;--warning:#fab219;--serious:#ec835a;--critical:#d03b3b;--neutral:#8a8984;--track:#ecebe7}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .viz-root{color-scheme:dark;--surface-0:#121211;--surface-1:#1a1a19;--border:#33332f;--grid:#2a2a27;--text-primary:#f0efec;--text-secondary:#c3c2b7;--text-muted:#94938b;--bar:#3987e5;--bar-soft:#184f95;--line:#3987e5;--neutral:#94938b;--track:#2a2a27}}
+:root[data-theme="dark"] .viz-root{color-scheme:dark;--surface-0:#121211;--surface-1:#1a1a19;--border:#33332f;--grid:#2a2a27;--text-primary:#f0efec;--text-secondary:#c3c2b7;--text-muted:#94938b;--bar:#3987e5;--bar-soft:#184f95;--line:#3987e5;--neutral:#94938b;--track:#2a2a27}
+*{box-sizing:border-box}body{margin:0}
+.viz-root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--surface-0);color:var(--text-primary);min-height:100vh;padding:28px 20px 60px;font-size:14px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px;font-weight:650}h2{font-size:17px;margin:0 0 4px;font-weight:620}
+.sub{color:var(--text-secondary);margin:0}.muted{color:var(--text-muted);font-size:12px}
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:16px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.tile{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.tile .lab{color:var(--text-secondary);font-size:12.5px}.tile .val{font-size:28px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums}.tile .hint{color:var(--text-muted);font-size:12px}
+ul.find{margin:8px 0 0;padding-left:18px}ul.find li{margin:6px 0}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;white-space:nowrap;color:var(--text-primary)}
+.st i{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;color:#fff}
+.st.grow i{background:var(--good)}.st.flat i{background:var(--neutral)}.st.drop i{background:var(--critical)}.st.new i{background:transparent;border:1.5px dashed var(--neutral);color:var(--text-secondary)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:600;color:var(--text-secondary);font-size:12px;padding:8px 8px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--grid);vertical-align:middle}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--surface-0)}tr.row.sel td{background:var(--surface-0)}
+td.num{text-align:right;white-space:nowrap}th.num{text-align:right}
+.site{font-weight:600}.fam{color:var(--text-muted);font-size:12px}
+.delta{color:var(--text-secondary);font-size:12px}
+.ixbar{width:70px;height:8px;border-radius:4px;background:var(--track);display:inline-block;vertical-align:middle;overflow:hidden;margin-right:6px}.ixbar span{display:block;height:100%;background:var(--bar);border-radius:4px}
+.ixbar.warn span{background:var(--warning)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.chip{border:1px solid var(--border);background:var(--surface-1);color:var(--text-primary);border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--text-primary);color:var(--surface-1);border-color:var(--text-primary)}
+select{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface-1);color:var(--text-primary)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:12px}
+.chart h3{font-size:13.5px;margin:0;font-weight:600}.chart p{margin:2px 0 6px;color:var(--text-muted);font-size:12px}
+svg text{fill:var(--text-muted);font-size:11px}
+.tip{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.12);display:none;z-index:9;color:var(--text-primary)}
+.tip b{font-weight:600}
+.note{background:var(--surface-0);border-radius:8px;padding:10px 12px;margin-top:10px;color:var(--text-secondary)}
+dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:8px 0 0}dt{font-weight:600}dd{margin:0;color:var(--text-secondary)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.tw{overflow-x:auto}
+.how{margin-top:14px;background:var(--surface-0);border-radius:8px;padding:10px 14px}.how summary{cursor:pointer;font-weight:600}.how dl{grid-template-columns:190px 1fr}
+.fun{display:grid;grid-template-columns:120px 1fr 64px;gap:6px 10px;align-items:center;font-size:12.5px;margin-top:6px}
+.fun .b{height:22px;border-radius:4px;background:var(--bar)}.fun .t{background:var(--track);border-radius:4px}.fun .n{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:640px){dl,.how dl{grid-template-columns:1fr}dd{margin-bottom:6px}.tile .val{font-size:24px}}
+</style></head>
+<body><div class="viz-root"><div class="wrap">
+<h1>Lead progress – City Oasis</h1>
+<p class="sub">How many new enquiries Light Life and Secret Soak Society get each month, where they come from, and how many turn into hot leads. June – November 2026.</p>
+<p class="muted">Source: GoHighLevel (contacts and lead pipelines), data pulled 18 Nov 2026. November 2026 is a part month (to 18 Nov). Lead records start in June 2026. Imported mailing lists are not counted as new leads. GHL does not record sales, sale values or response times, so these are not shown.</p>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="card"><h2>Summary</h2>
+<ul class="find" id="summary"><li><b>Leads fell by a third after July.</b> About 120 new leads a month in June–July, about 81 a month in August–October. The low point was September (38). October recovered to 65.</li><li><b>Secret Soak Society now brings most of the leads.</b> Its Facebook leads held steady at about 48 a month. Light Life's Facebook leads dropped from about 72 a month to 10–12 since September, after its ad budget was reduced.</li><li><b>The biggest leak is follow-up.</b> Since 1 October, 91 of 110 new leads have not been marked hot, warm or cold, so nobody has qualified them yet. Before October almost every lead was followed up.</li><li><b>When leads are followed up, many are hot.</b> In June–August, 41% of leads showed booking intent. That fell to 14% in October, mostly because fewer leads were followed up, not because lead quality changed.</li><li><b>Website forms bring very few leads.</b> 18 since August across both brands, and 16 of those have never been followed up.</li></ul></div>
+
+<div class="card"><h2>All sources together – new leads per month</h2>
+<p class="muted">Hover a bar for numbers. The lighter bar is a part month.</p>
+<div id="totalChart"></div></div>
+
+<div class="card"><h2>Report card</h2>
+<p class="muted">Compares the last 3 full months (Aug–Oct) with the months before (Jun–Jul). Click a row to see that source's charts below.</p>
+<div class="filters" id="filters"></div>
+<div class="legend" id="legend"></div>
+<div class="tw"><table id="tbl"><thead><tr><th>Lead source</th><th>Status</th><th class="num">Leads<br>Jun–Jul → Aug–Oct</th><th>New leads per month</th><th>Hot-lead rate</th><th>Not followed up<br>(since 1 Oct)</th></tr></thead><tbody></tbody></table></div>
+<details class="how" open><summary>How to read this table</summary>
+<dl>
+<dt>Status</dt><dd><b>Growing</b>: more leads per month in Aug–Oct than in Jun–Jul (up more than 15%). <b>Steady</b>: about the same. <b>Dropping</b>: down more than 15%. <b>New</b>: no leads before August, so too early to compare.</dd>
+<dt>Leads Jun–Jul → Aug–Oct</dt><dd>Total new leads in June–July (left) and August–October (right, bold), with the monthly average underneath. The periods have different lengths (2 and 3 months), so compare the <b>per month</b> figures. Example: <b>143 → 90</b> with <b>72 → 30 a month</b> means leads fell by more than half.</dd>
+<dt>New leads per month</dt><dd>Each small bar is one month, June to November. Taller bars mean more leads. The last, lighter bar is the part month.</dd>
+<dt>Hot-lead rate</dt><dd>The share of all leads that the team marked <b>hot</b> (showed buying or booking intent), June to November. Example: <b>35%</b> means about 1 in 3 leads was hot. Leads that were never followed up count as not hot.</dd>
+<dt>Not followed up</dt><dd>Leads since 1 October that have not been marked hot, warm or cold, so nobody has qualified them yet. Example: <b>60 of 78</b> means 60 of the 78 leads since October are still waiting. Lower is better.</dd>
+</dl></details>
+</div>
+
+<div class="card" id="detail"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h2 id="dTitle"></h2><label class="muted">Lead source <select id="sel"></select></label></div>
+<div class="note" id="dNote"></div>
+<div class="grid3">
+<div class="chart"><h3>New leads</h3><p>Leads per month</p><div id="cLeads"></div></div>
+<div class="chart"><h3>Hot-lead rate</h3><p>% of each month's leads marked hot</p><div id="cRate"></div></div>
+<div class="chart"><h3>Lead journey (Jun–Nov)</h3><p>How far the leads got. Each step is part of the one above.</p><div id="cFun"></div></div>
+</div></div>
+
+</div><div class="tip" id="tip"></div></div>
+<script>
+const DATA={"months":["2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"],"rows":[{"brand":"Light Life","source":"Facebook lead ads","leads":[54,89,69,9,12,10],"hot":[24,37,37,5,1,0],"warm":[18,31,17,3,0,0],"cold":[11,21,15,1,0,0],"none":[1,0,0,0,11,10]},{"brand":"Light Life","source":"Website forms","leads":[0,0,3,2,1,3],"hot":[0,0,0,0,0,0],"warm":[0,0,1,0,0,0],"cold":[0,0,0,0,0,0],"none":[0,0,2,2,1,3]},{"brand":"Secret Soak Society","source":"Facebook lead ads","leads":[40,58,67,26,51,27],"hot":[13,24,23,11,8,0],"warm":[6,14,18,7,10,0],"cold":[13,17,18,0,0,0],"none":[8,3,8,8,33,27]},{"brand":"Secret Soak Society","source":"Website forms","leads":[0,0,2,1,1,5],"hot":[0,0,0,0,0,0],"warm":[0,0,1,0,0,0],"cold":[0,0,0,0,0,0],"none":[0,0,1,1,1,5]}]};
+const MONTHS=DATA.months,N=MONTHS.length,LAB=MONTHS.map(m=>['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m.slice(5)-1]);
+const PART=i=>i===N-1;
+const iJ=MONTHS.indexOf('2026-06'),iA=MONTHS.indexOf('2026-08'),iO=MONTHS.indexOf('2026-10');
+const ST={grow:['grow','▲','Growing'],flat:['flat','–','Steady'],drop:['drop','▼','Dropping'],new:['new','·','New']};
+const fmt=n=>n==null?'–':n.toLocaleString();
+const sum=(a,i,j)=>a.slice(i,j).reduce((s,x)=>s+(x||0),0);
+const pct=(a,b)=>b?Math.round(a/b*100):null;
+const tip=document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.display='block';const x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8);tip.style.left=x+'px';tip.style.top=(e.clientY+14)+'px'}
+function hideTip(){tip.style.display='none'}
+const R=DATA.rows.map(r=>{const id=r.brand+' – '+r.source;const a=sum(r.leads,iJ,iA),b=sum(r.leads,iA,iO+1),pa=a/(iA-iJ),pb=b/(iO+1-iA);
+ const st=a===0?'new':pb>pa*1.15?'grow':pb<pa*0.85?'drop':'flat';
+ const tagged=r.leads.map((l,i)=>l-r.none[i]);return {...r,id,a,b,pa,pb,status:st,tagged,
+ sinceOct:sum(r.leads,iO,N),untagSinceOct:sum(r.none,iO,N)}});
+// tiles
+(()=>{const tl=R.reduce((s,r)=>s+sum(r.leads,0,N),0),th=R.reduce((s,r)=>s+sum(r.hot,0,N),0);
+ const lo=R.reduce((s,r)=>s+r.leads[iO],0),ls=R.reduce((s,r)=>s+r.leads[iO-1],0);
+ const so=R.reduce((s,r)=>s+r.sinceOct,0),uo=R.reduce((s,r)=>s+r.untagSinceOct,0);
+ const T=[['New leads',fmt(tl),'Jun – Nov 2026 (6 months)'],['Leads last full month',fmt(lo),'October ('+(lo>=ls?'up':'down')+' from '+ls+' in September)'],['Hot-lead rate',pct(th,tl)+'%',th+' of '+tl+' leads showed booking intent'],['Not followed up',uo+' of '+so,'leads since 1 Oct not yet marked hot, warm or cold']];
+ document.getElementById('tiles').innerHTML=T.map(t=>`<div class="tile"><div class="lab">${t[0]}</div><div class="val">${t[1]}</div><div class="hint">${t[2]}</div></div>`).join('')})();
+function nice(m){const p=Math.pow(10,Math.floor(Math.log10(m)));for(const k of[1,2,2.5,5,10])if(m/(k*p)<=5)return k*p;return 10*p}
+function bars(el,vals,{h=180,unit='',fmtV=fmt,top=null,extra=null,stp=null}={}){
+ const W=Math.max(280,el.clientWidth||340),H=h,ml=38,mr=6,mt=10,mb=26,iw=W-ml-mr,ih=H-mt-mb;
+ const max=Math.max(1,...vals.map(v=>v||0));const step=stp||nice(top||max);const T=top||Math.ceil(max/step)*step;
+ const bw=iw/vals.length,gap=Math.max(4,bw*0.3);let s=`<svg width="${W}" height="${H}" role="img">`;
+ for(let v=0;v<=T;v+=step){const y=mt+ih-ih*v/T;s+=`<line x1="${ml}" x2="${W-mr}" y1="${y}" y2="${y}" stroke="var(--grid)"/><text x="${ml-6}" y="${y+4}" text-anchor="end">${fmtV(v)}</text>`}
+ vals.forEach((v,i)=>{const x=ml+i*bw+gap/2,bh=ih*(v||0)/T,y=mt+ih-bh;const r=Math.min(4,bh/2,(bw-gap)/2);
+  if(v)s+=`<path d="M${x},${mt+ih}V${y+r}Q${x},${y} ${x+r},${y}H${x+bw-gap-r}Q${x+bw-gap},${y} ${x+bw-gap},${y+r}V${mt+ih}Z" fill="var(--bar)" opacity="${PART(i)?0.45:1}"/>`;
+  s+=`<rect x="${ml+i*bw}" y="${mt}" width="${bw}" height="${ih}" fill="transparent" data-i="${i}"/><text x="${ml+i*bw+bw/2}" y="${H-8}" text-anchor="middle">${LAB[i]}</text>`});
+ s+=`<line x1="${ml}" x2="${W-mr}" y1="${mt+ih}" y2="${mt+ih}" stroke="var(--border)"/></svg>`;el.innerHTML=s;
+ el.querySelectorAll('rect[data-i]').forEach(r=>{const i=+r.dataset.i;r.onmousemove=e=>showTip(e,`<b>${LAB[i]} 2026</b>${PART(i)?' (part month)':''}<br>${vals[i]==null?'no leads':fmtV(vals[i])+' '+unit}${extra?'<br>'+extra(i):''}`);r.onmouseleave=hideTip})}
+function spark(vals){const W=130,H=30,max=Math.max(1,...vals),bw=W/vals.length;let s=`<svg width="${W}" height="${H}" aria-hidden="true">`;vals.forEach((v,i)=>{const bh=Math.max(v?1.5:0,(H-2)*v/max);s+=`<rect x="${i*bw+1.5}" y="${H-bh}" width="${bw-3}" height="${bh}" rx="1.5" fill="var(--bar)" opacity="${PART(i)?0.45:1}"/>`});return s+'</svg>'}
+// total chart
+const total=MONTHS.map((_,i)=>R.reduce((s,r)=>s+r.leads[i],0));
+const drawTotal=()=>bars(document.getElementById('totalChart'),total,{h:210,unit:'new leads',extra:i=>R.map(r=>`${r.id}: ${r.leads[i]}`).join('<br>')});
+// table
+let filt='all';const order={grow:0,flat:1,drop:2,new:3};
+function stHTML(k){const[c,ic,l]=ST[k];return `<span class="st ${c}"><i>${ic}</i>${l}</span>`}
+document.getElementById('legend').innerHTML=Object.keys(ST).map(stHTML).join('');
+document.getElementById('filters').innerHTML=[['all','All brands'],['Light Life','Light Life'],['Secret Soak Society','Secret Soak Society']].map(([k,l])=>`<button class="chip" data-f="${k}" aria-pressed="${k===filt}">${l}</button>`).join('');
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{filt=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));drawTable()});
+let cur=R[0].id;
+function drawTable(){const rows=R.filter(r=>filt==='all'||r.brand===filt).sort((a,b)=>order[a.status]-order[b.status]||sum(b.leads,0,N)-sum(a.leads,0,N));
+ document.querySelector('#tbl tbody').innerHTML=rows.map(r=>{const tl=sum(r.leads,0,N),hr=pct(sum(r.hot,0,N),tl),up=pct(r.untagSinceOct,r.sinceOct);
+ return `<tr class="row ${r.id===cur?'sel':''}" data-s="${r.id}"><td><div class="site">${r.source}</div><div class="fam">${r.brand}</div></td><td>${stHTML(r.status)}</td><td class="num">${r.a} → <b>${r.b}</b><div class="delta">${Math.round(r.pa)} → ${Math.round(r.pb)} a month</div></td><td>${spark(r.leads)}<div class="delta">${tl} in 6 months</div></td><td><span class="ixbar"><span style="width:${hr||0}%"></span></span>${hr==null?'–':hr+'%'}</td><td>${r.sinceOct?`<span class="ixbar warn"><span style="width:${up}%"></span></span>${r.untagSinceOct} of ${r.sinceOct}`:'<span class="muted">no leads</span>'}</td></tr>`}).join('');
+ document.querySelectorAll('tr.row').forEach(r=>r.onclick=()=>{cur=r.dataset.s;sel.value=cur;drawTable();drawDetail();document.getElementById('detail').scrollIntoView({behavior:'smooth'})})}
+const sel=document.getElementById('sel');sel.innerHTML=R.map(r=>`<option>${r.id}</option>`).join('');sel.value=cur;sel.onchange=()=>{cur=sel.value;drawTable();drawDetail()};
+const NOTES={"Light Life – Facebook lead ads": "Was the biggest source in June–August (up to 89 leads a month). Since September it brings only 9–12 a month after the ad budget was reduced. Followed-up leads were often hot (about 4 in 10).", "Light Life – Website forms": "Enquiries from the Light Life (infrared light therapy) websites. Very few so far, starting in August, and almost none have been followed up.", "Secret Soak Society – Facebook lead ads": "Steady at about 50 leads a month, now most of all leads. But since October most new leads have not been followed up (60 of 78).", "Secret Soak Society – Website forms": "Enquiries from the Secret Soak Society (float therapy) websites and site pop-up. A small but rising number in November; none followed up yet."};
+function drawDetail(){const r=R.find(x=>x.id===cur);document.getElementById('dTitle').innerHTML=r.id+' &nbsp;'+stHTML(r.status);document.getElementById('dNote').textContent=NOTES[r.id]||'';
+ bars(document.getElementById('cLeads'),r.leads,{unit:'new leads',extra:i=>`Hot ${r.hot[i]} · Warm ${r.warm[i]} · Cold ${r.cold[i]} · Not followed up ${r.none[i]}`});
+ const rate=r.leads.map((l,i)=>l?pct(r.hot[i],l):null);
+ bars(document.getElementById('cRate'),rate,{unit:'',fmtV:v=>v==null?'–':v+'%',top:100,stp:25,extra:i=>r.leads[i]?`${r.hot[i]} hot of ${r.leads[i]} leads`:''});
+ const tl=sum(r.leads,0,N),tg=tl-sum(r.none,0,N),wh=sum(r.warm,0,N)+sum(r.hot,0,N),h=sum(r.hot,0,N);
+ const F=[['All leads',tl],['Followed up',tg],['Warm or hot',wh],['Hot',h]];
+ document.getElementById('cFun').innerHTML='<div class="fun">'+F.map(([l,v])=>`<div>${l}</div><div class="t"><div class="b" style="width:${tl?Math.max(v?2:0,v/tl*100):0}%"></div></div><div class="n">${v}${l!=='All leads'&&tl?' <span class="muted">'+pct(v,tl)+'%</span>':''}</div>`).join('')+'</div>'}
+function all(){drawTotal();drawTable();drawDetail()}all();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(all,150)});
+</script></body></html>
