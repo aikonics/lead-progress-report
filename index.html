@@ -54,7 +54,7 @@ dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:8px 0 0}dt{f
 <div class="tiles" id="tiles"></div>
 
 <div class="card"><h2>Summary</h2>
-<ul class="find" id="summary"><li><b>Leads fell by a third after July.</b> About 120 new leads a month in June–July, about 84 a month in August–October. The low point was September (40). October recovered to 70.</li><li><b>Secret Soak Society now brings most of the leads.</b> Its Facebook leads held steady at about 48 a month. Light Life's Facebook leads dropped from about 72 a month to 10–12 since September, after its ad budget was reduced.</li><li><b>The biggest leak is follow-up.</b> Since 1 October, 102 of 121 new leads have not been marked hot, warm or cold, so nobody has qualified them yet. Before October almost every lead was followed up.</li><li><b>When leads are followed up, many are hot.</b> In June–August, 41% of leads showed booking intent. That fell to 13% in October, mostly because fewer leads were followed up, not because lead quality changed.</li><li><b>Website forms bring very few leads.</b> 18 since August across both brands, and 16 of those have never been followed up.</li><li><b>Some people message us directly.</b> 13 enquiries since September came in through Instagram, Facebook or WhatsApp messages. None has been followed up, and the brand they asked about isn't recorded.</li></ul></div>
+<ul class="find" id="summary"><li><b>Leads fell by a third after July.</b> About 120 new leads a month in June–July, about 84 a month in August–October. The low point was September (40). October recovered to 70.</li><li><b>Secret Soak Society now brings most of the leads.</b> Its Facebook leads held steady at about 48 a month. Light Life's Facebook leads dropped from about 72 a month to 10–12 since September, after its ad budget was reduced.</li><li><b>The biggest leak is follow-up.</b> Since 1 October, 102 of 121 new leads have not been marked hot, warm or cold, so nobody has qualified them yet. Before October almost every lead was followed up.</li><li><b>When leads are followed up, many are hot.</b> In June–August, 41% of leads showed booking intent. That fell to 13% in October, mostly because fewer leads were followed up, not because lead quality changed.</li><li><b>Website forms bring very few leads.</b> 18 since August across both brands, and 16 of those have never been followed up.</li><li><b>Imported lists are slow to qualify.</b> About 17,000 old contacts were imported. 637 WhatsApp numbers were collected from them, and the marketing team reports 78 replies and 11 hot leads (these replies are not yet recorded in GHL).</li><li><b>Some people message us directly.</b> 13 enquiries since September came in through Instagram, Facebook or WhatsApp messages. None has been followed up, and the brand they asked about isn't recorded.</li></ul></div>
 
 <div class="card"><h2>All sources together – new leads per month</h2>
 <p class="muted">Hover a bar for numbers. The lighter bar is a part month.</p>
@@ -82,6 +82,11 @@ dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:8px 0 0}dt{f
 <div class="chart"><h3>Hot-lead rate</h3><p>% of each month's leads marked hot</p><div id="cRate"></div></div>
 <div class="chart"><h3>Lead journey (Jun–Nov)</h3><p>How far the leads got. Each step is part of the one above.</p><div id="cFun"></div></div>
 </div></div>
+
+<div class="card"><h2>Imported contact lists</h2>
+<p class="muted">Old contacts imported into GHL so the team could re-contact and qualify them. These are not counted as new leads above.</p>
+<div id="impFun" style="max-width:720px"></div>
+<div class="note" id="impNote"></div></div>
 
 </div><div class="tip" id="tip"></div></div>
 <script>
@@ -141,5 +146,9 @@ function drawDetail(){const r=R.find(x=>x.id===cur);document.getElementById('dTi
  const tl=sum(r.leads,0,N),tg=tl-sum(r.none,0,N),wh=sum(r.warm,0,N)+sum(r.hot,0,N),h=sum(r.hot,0,N);
  const F=[['All leads',tl],['Followed up',tg],['Warm or hot',wh],['Hot',h]];
  document.getElementById('cFun').innerHTML='<div class="fun">'+F.map(([l,v])=>`<div>${l}</div><div class="t"><div class="b" style="width:${tl?Math.max(v?2:0,v/tl*100):0}%"></div></div><div class="n">${v}${l!=='All leads'&&tl?' <span class="muted">'+pct(v,tl)+'%</span>':''}</div>`).join('')+'</div>'}
+
+const IMP={"steps": [["Imported (4 May, email only)", 16946, false], ["WhatsApp numbers collected (14 Oct)", 637, false], ["Replied to WhatsApp nurture", 78, true], ["Hot (ready to book)", 11, true]], "note": "<b>How to read this:</b> each bar is part of the one above. About 4 in every 100 imported contacts gave a WhatsApp number, and about 1 in every 1,500 became a hot lead. For comparison, about 4 in 10 new leads from ads were hot when the team qualified them. <span class=\"muted\">* Reported by the marketing team on 17 Nov 2026; not yet recorded in GHL, so not verified. The 637 are assumed to be the WhatsApp numbers collected from the imported list (to be confirmed). 14,019 of the imported contacts carry a “failed” tag in GHL; we are checking what it means.</span>"};
+(()=>{const top=IMP.steps[0][1];document.getElementById('impFun').innerHTML='<div class="fun" style="grid-template-columns:230px 1fr 90px">'+IMP.steps.map(([l,v,ext])=>`<div>${l}${ext?' <span class="muted">*</span>':''}</div><div class="t"><div class="b" style="width:${Math.max(1.2,v/top*100)}%;${ext?'opacity:.5':''}"></div></div><div class="n">${v.toLocaleString()}</div>`).join('')+'</div>';
+document.getElementById('impNote').innerHTML=IMP.note})();
 function all(){drawTotal();drawTable();drawDetail()}all();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(all,150)});
 </script></body></html>
